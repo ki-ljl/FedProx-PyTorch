@@ -1,0 +1,3 @@
+Data
+
+The target variable is power generation, normalized here by the respective nominal capacities of each wind farm. The explanatory variables that can be used are the past power measurements (if relevant), and input weather forecasts, given as u and v components (zonal and meridional) which can be transformed to wind speed and direction by the contestants, or used readily. These forecasts are given at two heights, 10m and 100m above ground level, in order to give a rough idea of wind profiles.
