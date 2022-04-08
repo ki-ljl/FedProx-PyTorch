@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/FedProx-pytorch-lightgreen)
+![](https://img.shields.io/badge/FedProx-pytorch-green)
 # FedProx-PyTorch
 PyTorch implementation of FedProx (Federated Optimization for Heterogeneous Networks, MLSys 2020).
 
