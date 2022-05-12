@@ -10,26 +10,25 @@ from itertools import chain
 
 import numpy as np
 import torch
+from torch.optim.lr_scheduler import StepLR
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from torch import nn
 from data_process import nn_seq_wind
 
 
-def train(args, model, server, global_round):
+def train(args, model, server):
     model.train()
     Dtr, Dte = nn_seq_wind(model.name, args.B)
     model.len = len(Dtr)
     global_model = copy.deepcopy(server)
-    if args.weight_decay != 0:
-        lr = args.lr * pow(args.weight_decay, global_round)
-    else:
-        lr = args.lr
+    lr = args.lr
     if args.optimizer == 'adam':
         optimizer = torch.optim.Adam(model.parameters(), lr=lr,
                                      weight_decay=args.weight_decay)
     else:
         optimizer = torch.optim.SGD(model.parameters(), lr=lr,
                                     momentum=0.9, weight_decay=args.weight_decay)
+    stepLR = StepLR(optimizer, step_size=args.step_size, gamma=args.gamma)
     print('training...')
     loss_function = nn.MSELoss().to(args.device)
     loss = 0
@@ -47,6 +46,7 @@ def train(args, model, server, global_round):
             loss = loss_function(y_pred, label) + (args.mu / 2) * proximal_term
             loss.backward()
             optimizer.step()
+        stepLR.step()
 
         print('epoch', epoch, ':', loss.item())
 

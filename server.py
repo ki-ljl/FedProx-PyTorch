@@ -33,7 +33,7 @@ class FedProx:
             # dispatch
             self.dispatch(index)
             # local updating
-            self.client_update(index, t)
+            self.client_update(index)
             # aggregation
             self.aggregation(index)
 
@@ -61,9 +61,9 @@ class FedProx:
             for old_params, new_params in zip(self.nns[j].parameters(), self.nn.parameters()):
                 old_params.data = new_params.data.clone()
 
-    def client_update(self, index, global_round):  # update nn
+    def client_update(self, index):  # update nn
         for k in index:
-            self.nns[k] = train(self.args, self.nns[k], self.nn, global_round)
+            self.nns[k] = train(self.args, self.nns[k], self.nn)
 
     def global_test(self):
         model = self.nn
