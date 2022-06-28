@@ -10,6 +10,8 @@ import random
 
 import numpy as np
 import torch
+from tqdm import tqdm
+
 from model import ANN
 from client import train, test
 
@@ -25,7 +27,7 @@ class FedProx:
             self.nns.append(temp)
 
     def server(self):
-        for t in range(self.args.r):
+        for t in tqdm(range(self.args.r)):
             print('round', t + 1, ':')
             # sampling
             m = np.max([int(self.args.C * self.args.K), 1])

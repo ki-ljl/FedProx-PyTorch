@@ -13,7 +13,7 @@ def args_parser():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--E', type=int, default=30, help='number of rounds of training')
-    parser.add_argument('--r', type=int, default=5, help='number of communication rounds')
+    parser.add_argument('--r', type=int, default=30, help='number of communication rounds')
     parser.add_argument('--K', type=int, default=10, help='number of total clients')
     parser.add_argument('--input_dim', type=int, default=28, help='input dimension')
     parser.add_argument('--lr', type=float, default=0.01, help='learning rate')
